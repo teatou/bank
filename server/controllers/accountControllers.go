@@ -1,25 +1,12 @@
 package controllers
 
 import (
-	"math/rand"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/teatou/bank/server/models"
 	"github.com/teatou/bank/server/storage"
 	"golang.org/x/crypto/bcrypt"
 )
-
-func newAccount(firstName, lastName, password string) *models.Account {
-	return &models.Account{
-		FirstName:         firstName,
-		LastName:          lastName,
-		EncryptedPassword: password,
-		Number:            int64(rand.Intn(1000000)),
-		CreatedAt:         time.Now().UTC(),
-	}
-}
 
 func Signup(c *gin.Context) {
 	var req struct {

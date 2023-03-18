@@ -19,6 +19,8 @@ func main() {
 
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
+	r.GET("/account/:id", controllers.GetAccountByID)
+	r.GET("/accounts", controllers.GetAccounts)
 
 	r.Run()
 }

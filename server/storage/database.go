@@ -2,8 +2,8 @@ package storage
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
-	"os"
 
 	_ "github.com/lib/pq"
 	"github.com/teatou/bank/server/models"
@@ -22,42 +22,6 @@ type Storage interface {
 
 type PostgresStore struct {
 	DB *sql.DB
-}
-
-func NewPostgresStore() (*PostgresStore, error) {
-	connStr := os.Getenv("DB_CONN")
-
-	DB, err := sql.Open("postgres", connStr)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := DB.Ping(); err != nil {
-		return nil, err
-	}
-
-	return &PostgresStore{
-		DB: DB,
-	}, nil
-}
-
-func (s *PostgresStore) Init() error {
-	return s.createAccountTable()
-}
-
-func (s *PostgresStore) createAccountTable() error {
-	query := `create table if not exists account (
-		id serial primary key,
-		first_name varchar(100),
-		last_name varchar(100),
-		number serial,
-		encrypted_password varchar(100),
-		balance serial,
-		created_at timestamp
-	)`
-
-	_, err := s.DB.Exec(query)
-	return err
 }
 
 func (s *PostgresStore) CreateAccount(acc *models.Account) error {
@@ -79,6 +43,37 @@ func (s *PostgresStore) CreateAccount(acc *models.Account) error {
 	}
 
 	return nil
+}
+
+func (s *PostgresStore) GetAccounts() ([]*models.Account, error) {
+	rows, err := s.DB.Query("select * from account")
+	if err != nil {
+		return nil, errors.New("error selecting from table")
+	}
+
+	accounts := []*models.Account{}
+	for rows.Next() {
+		account, err := scanIntoAccount(rows)
+		if err != nil {
+			return nil, errors.New("error scanning")
+		}
+		accounts = append(accounts, account)
+	}
+
+	return accounts, nil
+}
+
+func (s *PostgresStore) GetAccountByID(id int) (*models.Account, error) {
+	rows, err := s.DB.Query("select * from account where id = $1", id)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		return scanIntoAccount(rows)
+	}
+
+	return nil, fmt.Errorf("account %d not found", id)
 }
 
 func (s *PostgresStore) GetAccountByNumber(number int) (*models.Account, error) {
