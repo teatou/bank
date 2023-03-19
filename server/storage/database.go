@@ -34,7 +34,7 @@ func (s *PostgresStore) CreateAccount(acc *models.Account) error {
 		acc.FirstName,
 		acc.LastName,
 		acc.Number,
-		acc.EncryptedPassword,
+		acc.Password,
 		acc.Balance,
 		acc.CreatedAt)
 
@@ -43,6 +43,16 @@ func (s *PostgresStore) CreateAccount(acc *models.Account) error {
 	}
 
 	return nil
+}
+
+func (s *PostgresStore) DeleteAccount(id int) error {
+	_, err := s.GetAccountByID(id)
+	if err != nil {
+		return fmt.Errorf("no account by id %d", id)
+	}
+
+	_, err = s.DB.Query("delete from account where id = $1", id)
+	return err
 }
 
 func (s *PostgresStore) GetAccounts() ([]*models.Account, error) {

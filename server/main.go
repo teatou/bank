@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/teatou/bank/server/controllers"
 	"github.com/teatou/bank/server/initializers"
+	"github.com/teatou/bank/server/middleware"
 	"github.com/teatou/bank/server/storage"
 )
 
@@ -19,8 +20,9 @@ func main() {
 
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
-	r.GET("/account/:id", controllers.GetAccountByID)
+	r.GET("/account", middleware.RequireAuth, controllers.GetAccountByID)
 	r.GET("/accounts", controllers.GetAccounts)
+	r.DELETE("/account/:id", controllers.DeleteAccountById)
 
 	r.Run()
 }

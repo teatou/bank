@@ -2,8 +2,11 @@ package controllers
 
 import (
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/teatou/bank/server/storage"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -64,7 +67,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(account.EncryptedPassword), []byte(req.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(account.Password), []byte(req.Password))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "invalid password",
@@ -72,18 +75,23 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	token, err := createJWT(account)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+		"id":  account.ID,
+	})
+
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid password",
+			"error": "failed to create token",
 		})
 		return
 	}
 
 	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("Auth", token, 3600*24*30, "", "", true, true)
+	c.SetCookie("Auth", tokenString, 3600*24*30, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{
-		"token": token,
+		"token": tokenString,
 	})
 }

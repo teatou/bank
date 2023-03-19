@@ -58,7 +58,7 @@ func scanIntoAccount(rows *sql.Rows) (*models.Account, error) {
 		&account.FirstName,
 		&account.LastName,
 		&account.Number,
-		&account.EncryptedPassword,
+		&account.Password,
 		&account.Balance,
 		&account.CreatedAt)
 
