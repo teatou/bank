@@ -15,7 +15,7 @@ func newAccount(firstName, lastName, password string) *models.Account {
 		FirstName: firstName,
 		LastName:  lastName,
 		Password:  password,
-		Number:    int64(number),
+		Number:    number,
 		CreatedAt: time.Now().UTC(),
 	}
 }
