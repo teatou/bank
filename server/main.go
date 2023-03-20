@@ -23,6 +23,7 @@ func main() {
 	r.GET("/account", middleware.RequireAuth, controllers.GetAccountByID)
 	r.GET("/accounts", controllers.GetAccounts)
 	r.DELETE("/account/:id", controllers.DeleteAccountById)
+	r.POST("/transfer", middleware.RequireAuth, controllers.TransferMoney)
 
 	r.Run()
 }

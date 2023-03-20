@@ -14,7 +14,7 @@ var DB *PostgresStore
 type Storage interface {
 	CreateAccount(*models.Account) error
 	DeleteAccount(int) error
-	UpdateAccount(*models.Account) error
+	UpdateBalance(*models.Account) error
 	GetAccounts() ([]*models.Account, error)
 	GetAccountByID(int) (*models.Account, error)
 	GetAccountByNumber(int) (*models.Account, error)
@@ -35,7 +35,7 @@ func (s *PostgresStore) CreateAccount(acc *models.Account) error {
 		acc.LastName,
 		acc.Number,
 		acc.Password,
-		acc.Balance,
+		1500,
 		acc.CreatedAt)
 
 	if err != nil {
@@ -97,4 +97,13 @@ func (s *PostgresStore) GetAccountByNumber(number int) (*models.Account, error) 
 	}
 
 	return nil, fmt.Errorf("account with number [%d] not found", number)
+}
+
+func (s *PostgresStore) UpdateBalance(number, sum int) error {
+	query := fmt.Sprintf(`UPDATE account
+	SET balance = balance + %d
+	WHERE number = %d;`, sum, number)
+
+	_, err := s.DB.Exec(query)
+	return err
 }

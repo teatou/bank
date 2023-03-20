@@ -3,10 +3,12 @@ package controllers
 import (
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/teatou/bank/server/models"
 	"github.com/teatou/bank/server/storage"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -94,4 +96,65 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
 	})
+}
+
+func TransferMoney(c *gin.Context) {
+	acc, _ := c.Get("account")
+
+	account, err := storage.DB.GetAccountByID(acc.(models.Account).ID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to get account by id",
+		})
+		return
+	}
+
+	numberTo, err := strconv.Atoi(c.Query("to"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid number",
+		})
+		return
+	}
+
+	accountTo, err := storage.DB.GetAccountByNumber(numberTo)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "no such account",
+		})
+		return
+	}
+
+	sum, err := strconv.Atoi(c.Query("sum"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid sum",
+		})
+		return
+	}
+
+	if sum > int(account.Balance) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "not enough money",
+		})
+		return
+	}
+
+	err = storage.DB.UpdateBalance(int(accountTo.Number), sum)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to add money",
+		})
+		return
+	}
+
+	err = storage.DB.UpdateBalance(int(account.Number), -sum)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to retrieve money",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{})
 }
