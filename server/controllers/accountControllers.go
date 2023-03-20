@@ -27,6 +27,13 @@ func Signup(c *gin.Context) {
 		return
 	}
 
+	if isAccount := storage.DB.IsAccount(req.FirstName, req.LastName); isAccount {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "account already exists",
+		})
+		return
+	}
+
 	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), 10)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

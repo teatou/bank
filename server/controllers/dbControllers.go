@@ -48,3 +48,17 @@ func DeleteAccount(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{})
 }
+
+func DeleteAccounts(c *gin.Context) {
+	query := `delete from account;`
+
+	_, err := storage.DB.DB.Exec(query)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to clear table",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{})
+}

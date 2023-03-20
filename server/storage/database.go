@@ -15,6 +15,7 @@ type Storage interface {
 	CreateAccount(*models.Account) error
 	DeleteAccount(int) error
 	UpdateBalance(*models.Account) error
+	IsAccount(string, string) bool
 	GetAccounts() ([]*models.Account, error)
 	GetAccountByID(int) (*models.Account, error)
 	GetAccountByNumber(int) (*models.Account, error)
@@ -87,16 +88,26 @@ func (s *PostgresStore) GetAccountByID(id int) (*models.Account, error) {
 }
 
 func (s *PostgresStore) GetAccountByNumber(number int) (*models.Account, error) {
-	rows, err := s.DB.Query("select * from account where number = $1", number)
-	if err != nil {
-		return nil, err
-	}
+	query := `select * from account
+	where number = $1;`
+
+	rows, _ := s.DB.Query(query, number)
 
 	for rows.Next() {
 		return scanIntoAccount(rows)
 	}
 
 	return nil, fmt.Errorf("account with number [%d] not found", number)
+}
+
+func (s *PostgresStore) IsAccount(firstname, lastname string) bool {
+	query := `select * from account
+	where first_name = $1
+	and last_name = $2;`
+
+	rows, _ := s.DB.Query(query, firstname, lastname)
+
+	return rows.Next()
 }
 
 func (s *PostgresStore) UpdateBalance(number, sum int) error {
