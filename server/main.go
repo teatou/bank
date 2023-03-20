@@ -15,14 +15,13 @@ func init() {
 }
 
 func main() {
-
 	r := gin.Default()
 
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
 	r.GET("/account", middleware.RequireAuth, controllers.GetAccountByID)
 	r.GET("/accounts", controllers.GetAccounts)
-	r.DELETE("/account/:id", controllers.DeleteAccountById)
+	r.DELETE("/account", middleware.RequireAuth, controllers.DeleteAccount)
 	r.POST("/transfer", middleware.RequireAuth, controllers.TransferMoney)
 
 	r.Run()

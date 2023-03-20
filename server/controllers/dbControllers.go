@@ -1,9 +1,7 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/teatou/bank/server/models"
@@ -37,16 +35,10 @@ func GetAccountByID(c *gin.Context) {
 	c.JSON(http.StatusOK, account)
 }
 
-func DeleteAccountById(c *gin.Context) {
-	id, err := getId(c)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+func DeleteAccount(c *gin.Context) {
+	acc, _ := c.Get("account")
 
-	err = storage.DB.DeleteAccount(id)
+	err := storage.DB.DeleteAccount(acc.(models.Account).ID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -55,13 +47,4 @@ func DeleteAccountById(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{})
-}
-
-func getId(c *gin.Context) (int, error) {
-	idString := c.Param("id")
-	id, err := strconv.Atoi(idString)
-	if err != nil {
-		return 0, fmt.Errorf("invalid id %s", idString)
-	}
-	return id, nil
 }
