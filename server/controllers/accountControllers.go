@@ -140,14 +140,14 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	if sum > int(account.Balance) {
+	if sum > account.Balance {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "not enough money",
 		})
 		return
 	}
 
-	err = storage.DB.UpdateBalance(int(accountTo.Number), sum)
+	err = storage.DB.UpdateBalance(accountTo.Number, sum)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "failed to add money",
@@ -155,10 +155,19 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	err = storage.DB.UpdateBalance(int(account.Number), -sum)
+	err = storage.DB.UpdateBalance(account.Number, -sum)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "failed to retrieve money",
+		})
+		return
+	}
+
+	transaction := newTransaction(account.Number, accountTo.Number, sum)
+	err = storage.DB.CreateTransaction(transaction)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to save transaction",
 		})
 		return
 	}

@@ -25,7 +25,12 @@ func NewPostgresStore() (*PostgresStore, error) {
 }
 
 func (s *PostgresStore) Init() error {
-	return s.createAccountTable()
+	err := s.createAccountTable()
+	if err != nil {
+		return err
+	}
+
+	return s.createTransactionTable()
 }
 
 func (s *PostgresStore) createAccountTable() error {
@@ -35,7 +40,20 @@ func (s *PostgresStore) createAccountTable() error {
 		last_name varchar(100),
 		number serial,
 		encrypted_password varchar(100),
-		balance serial,
+		balance numeric,
+		created_at timestamp
+	)`
+
+	_, err := s.DB.Exec(query)
+	return err
+}
+
+func (s *PostgresStore) createTransactionTable() error {
+	query := `create table if not exists transaction (
+		id serial primary key,
+		from_number numeric,
+		to_number numeric,
+		sum numeric,
 		created_at timestamp
 	)`
 
@@ -63,4 +81,16 @@ func scanIntoAccount(rows *sql.Rows) (*models.Account, error) {
 		&account.CreatedAt)
 
 	return account, err
+}
+
+func scanIntoTransaction(rows *sql.Rows) (*models.Transaction, error) {
+	transaction := new(models.Transaction)
+	err := rows.Scan(
+		&transaction.ID,
+		&transaction.From,
+		&transaction.To,
+		&transaction.Sum,
+		&transaction.CreatedAt)
+
+	return transaction, err
 }

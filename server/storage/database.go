@@ -15,6 +15,7 @@ type Storage interface {
 	CreateAccount(*models.Account) error
 	DeleteAccount(int) error
 	UpdateBalance(*models.Account) error
+	CreateTransaction(int, int, int) error
 	IsAccount(string, string) bool
 	GetAccounts() ([]*models.Account, error)
 	GetAccountByID(int) (*models.Account, error)
@@ -38,6 +39,26 @@ func (s *PostgresStore) CreateAccount(acc *models.Account) error {
 		acc.Password,
 		1500,
 		acc.CreatedAt)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *PostgresStore) CreateTransaction(t *models.Transaction) error {
+	query := `insert into transaction
+	(id, from_number, to_number, sum, created_at)
+	values ($1, $2, $3, $4, $5);`
+
+	_, err := s.DB.Query(
+		query,
+		t.ID,
+		t.From,
+		t.To,
+		t.Sum,
+		t.CreatedAt)
 
 	if err != nil {
 		return err
@@ -72,6 +93,28 @@ func (s *PostgresStore) GetAccounts() ([]*models.Account, error) {
 	}
 
 	return accounts, nil
+}
+
+func (s *PostgresStore) GetTransactions(number int) ([]*models.Transaction, error) {
+	query := fmt.Sprintf(`select * from transaction
+	where from_number = %d
+	or to_number = %d`, number, number)
+
+	rows, err := s.DB.Query(query)
+	if err != nil {
+		return nil, errors.New("error selecting from table")
+	}
+
+	transactions := []*models.Transaction{}
+	for rows.Next() {
+		transaction, err := scanIntoTransaction(rows)
+		if err != nil {
+			return nil, errors.New("error scanning")
+		}
+		transactions = append(transactions, transaction)
+	}
+
+	return transactions, nil
 }
 
 func (s *PostgresStore) GetAccountByID(id int) (*models.Account, error) {

@@ -20,6 +20,7 @@ func main() {
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
 	r.GET("/account", middleware.RequireAuth, controllers.GetAccountByID)
+	r.GET("/transactions", middleware.RequireAuth, controllers.GetTransactions)
 	r.GET("/accounts", controllers.GetAccounts)       // admin
 	r.DELETE("/accounts", controllers.DeleteAccounts) // admin
 	r.DELETE("/account", middleware.RequireAuth, controllers.DeleteAccount)
