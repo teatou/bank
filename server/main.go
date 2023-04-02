@@ -1,7 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 	"github.com/teatou/bank/server/controllers"
 	"github.com/teatou/bank/server/initializers"
 	"github.com/teatou/bank/server/middleware"
@@ -15,7 +18,17 @@ func init() {
 }
 
 func main() {
+	c := cors.New(cors.Options{
+		AllowedOrigins:     []string{os.Getenv("CLIENT")},
+		AllowedMethods:     []string{"GET", "POST"},
+		AllowedHeaders:     []string{},
+		ExposedHeaders:     []string{},
+		AllowCredentials:   true,
+		OptionsPassthrough: false, // preflight requests
+	})
+
 	r := gin.Default()
+	r.Use(c)
 
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
