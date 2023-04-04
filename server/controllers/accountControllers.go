@@ -15,9 +15,9 @@ import (
 
 func Signup(c *gin.Context) {
 	var req struct {
-		FirstName string
-		LastName  string
-		Password  string
+		FirstName string `json:"firstname"`
+		LastName  string `json:"lastname"`
+		Password  string `json:"password"`
 	}
 
 	if c.Bind(&req) != nil {
@@ -57,8 +57,8 @@ func Signup(c *gin.Context) {
 
 func Login(c *gin.Context) {
 	var req struct {
-		Number   int
-		Password string
+		Number   int    `json:"number"`
+		Password string `json:"password"`
 	}
 
 	if c.Bind(&req) != nil {

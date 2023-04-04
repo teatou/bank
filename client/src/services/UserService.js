@@ -1,5 +1,5 @@
 export default class UserService {
-    fetchTransactions() {
+    static fetchTransactions() {
         return $api.get('/transactions')
     }
 }

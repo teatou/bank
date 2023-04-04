@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -11,6 +11,7 @@ import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import History from './pages/History'
+import Store from './store/store';
 
 const AppLayout = () => (
   <>
@@ -47,8 +48,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const store = new Store()
+
+export const Context = createContext({
+  store
+})
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Context.Provider value={{store}}>
+      <RouterProvider router={router} />
+    </Context.Provider>
   </React.StrictMode>,
 )

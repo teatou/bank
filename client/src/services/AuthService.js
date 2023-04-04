@@ -1,11 +1,12 @@
-import { AxiosResponse } from "axios"
+import $api from "../api/api"
 
 export default class AuthService {
-    async login(number, password) {
-        return $api.post('/login', {number, password})
+    static async login(number, password) {
+        const body = { number: parseInt(number, 10), password: password }
+        return $api.post('/login', body)
     }
 
-    async signup(firstName, lastName, password) {
-        return $api.post('/signup', {firstName, lastName, password})
+    static async signup(firstName, lastName, password) {
+        return $api.post('/signup', {firstname: firstName, lastname: lastName, password: password})
     }
 }
