@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Log from './pages/Log'
 import History from './pages/History'
 import Store from './store/store';
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <Signup />,
+  },
+  {
+    path: "log",
+    element: <Log />,
   },
 ]);
 
