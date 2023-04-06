@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../main';
 
-export default function Home() {
+const Home = () => {
+  const {store} = useContext(Context)
+
   return (
-    <div>Home</div>
+    <div>
+      <button onClick={() => store.logout()}>logout</button>
+    </div>
   )
 }
+
+export default Home

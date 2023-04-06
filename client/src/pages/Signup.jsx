@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../main'
 
-export default function Signup() {
+const Signup = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -32,3 +32,5 @@ export default function Signup() {
     </div>
   )
 }
+
+export default Signup

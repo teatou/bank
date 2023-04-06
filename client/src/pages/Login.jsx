@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../main'
 
-export default function Login() {
+const Login = () => {
   const [number, setNumber] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,3 +25,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login

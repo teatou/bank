@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "../App.css";
 import { IconContext } from "react-icons";
+import { observer } from "mobx-react-lite";
 
 function Navbar() {
   return (
@@ -27,4 +28,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default observer(Navbar);
