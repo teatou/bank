@@ -48,11 +48,10 @@ export default class Store {
 
     async logout() {
         try {
-            const response = await AuthService.logout()
-            console.log(response)
+            await AuthService.logout()
+            localStorage.removeItem('isAuth')
             this.setAuth(false)
             this.setUser({})
-            localStorage.removeItem('isAuth')
         } catch (e) {
             console.log(e.response)
         }
@@ -64,7 +63,7 @@ export default class Store {
         try {
             const response = await $api.get('/validate')
             console.log(response)
-            
+            localStorage.setItem('isAuth', 'true')
             this.setAuth(true)
             this.setUser(response.data.account)
         } catch (e) {

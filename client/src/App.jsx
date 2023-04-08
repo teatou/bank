@@ -45,7 +45,6 @@ const App = () => {
     useEffect(() => {
       if (localStorage.getItem('isAuth')) {
         store.checkAuth()
-        console.log(store.user)
       }
     }, [])
 
@@ -55,9 +54,9 @@ const App = () => {
         )
     }
 
-    if (!store.isAuth) {
+    if (!store.isAuth && localStorage.getItem('isAuth') === null) {
         return (
-            <Login/>
+          <Login/>
         )
     }
 

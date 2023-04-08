@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Context } from '../main';
+import { observer } from 'mobx-react-lite';
 
 const Home = () => {
   const {store} = useContext(Context)
@@ -11,4 +12,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default observer(Home)

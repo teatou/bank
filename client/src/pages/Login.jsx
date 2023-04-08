@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../main'
+import { observer } from 'mobx-react-lite'
 
 const Login = () => {
   const [number, setNumber] = useState('')
@@ -26,4 +27,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default observer(Login)
