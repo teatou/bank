@@ -1,13 +1,10 @@
-import React, { useContext } from 'react'
-import { Context } from '../main';
+import React from 'react'
 import { observer } from 'mobx-react-lite';
 
 const Home = () => {
-  const {store} = useContext(Context)
-
   return (
     <div>
-      <button onClick={() => store.logout()}>logout</button>
+      Home
     </div>
   )
 }

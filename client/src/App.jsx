@@ -11,12 +11,19 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { observer } from 'mobx-react-lite';
 import { Context } from './main';
+import styled from 'styled-components'
+import History from './pages/History';
+
+const FlexLayount = styled.div`
+  display: flex;
+  width: 100vw;
+`
 
 const AppLayout = () => (
-    <>
+    <FlexLayount>
       <Navbar />
       <Outlet />
-    </>
+    </FlexLayount>
   );
 
 const router = createBrowserRouter([
@@ -26,6 +33,10 @@ const router = createBrowserRouter([
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/history",
+          element: <History/>,
         },
       ],
     },

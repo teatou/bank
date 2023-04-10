@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "../App.css";
 import { IconContext } from "react-icons";
+import { Context } from '../main';
 
 function Navbar() {
+  const {store} = useContext(Context)
+
   return (
-    <>
+    <div>
+      <div>{store.account ? store.account.firstName + ' ' + store.account.lastName : 'user' }</div>
       <IconContext.Provider value={{ color: "undefined" }}>
-        <nav className="nav-menu">
-          <ul className="nav-menu-items">
+        <nav>
+          <ul>
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
@@ -23,7 +27,8 @@ function Navbar() {
           </ul>
         </nav>
       </IconContext.Provider>
-    </>
+      <button onClick={() => store.logout()}>logout</button>
+    </div>
   );
 }
 

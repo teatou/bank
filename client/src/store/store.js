@@ -1,9 +1,10 @@
 import AuthService from '../services/AuthService'
 import $api from '../api/api'
 import { makeAutoObservable } from 'mobx'
+import UserService from '../services/UserService'
 
 export default class Store {
-    user = {}
+    account = {}
     isAuth = false
     isLoading = false
 
@@ -15,8 +16,8 @@ export default class Store {
         this.isAuth = bool
     }
 
-    setUser(user) {
-        this.user = user
+    setAccount(account) {
+        this.account = account
     }
 
     setLoading(bool) {
@@ -28,7 +29,7 @@ export default class Store {
             const response = await AuthService.login(number, password)
             console.log(response)
             this.setAuth(true)
-            this.setUser(response.data.account)
+            this.setAccount(response.data.account)
             localStorage.setItem('isAuth', 'true')
         } catch (e) {
             console.log(e.response.data)
@@ -40,7 +41,7 @@ export default class Store {
             const response = await AuthService.signup(firstName, lastName, password)
             console.log(response)
             this.setAuth(true)
-            this.setUser(response.data.user)
+            this.setAccount(response.data.account)
         } catch (e) {
             console.log(e.response)
         }
@@ -51,7 +52,7 @@ export default class Store {
             await AuthService.logout()
             localStorage.removeItem('isAuth')
             this.setAuth(false)
-            this.setUser({})
+            this.setAccount({})
         } catch (e) {
             console.log(e.response)
         }
@@ -63,13 +64,21 @@ export default class Store {
         try {
             const response = await $api.get('/validate')
             console.log(response)
-            localStorage.setItem('isAuth', 'true')
-            this.setAuth(true)
-            this.setUser(response.data.account)
+            this.setAccount(response.data.account)
         } catch (e) {
+            await this.logout()
             console.log(e.response)
         } finally {
             this.setLoading(false)
+        }
+    }
+
+    async getAccount() {
+        try {
+            await UserService.fetchAccount()
+            this.setAccount(response.data.account)
+        } catch (e) {
+            console.log(e.response)
         }
     }
 }
