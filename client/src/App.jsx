@@ -11,6 +11,7 @@ import { observer } from 'mobx-react-lite';
 import { Context } from './main';
 import styled from 'styled-components'
 import History from './pages/History';
+import Log from './pages/Log';
 
 const FlexLayount = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ const App = () => {
       )
     } else if (!store.isAuth && localStorage.getItem('isAuth') === null) {
         return (
-          <Login/>
+          <Log/>
         )
     } else {
       return (

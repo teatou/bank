@@ -46,9 +46,9 @@ export default class Store {
             const response = await AuthService.signup(firstName, lastName, password)
             console.log(response)
             this.setAuth(true)
-            await this.checkAuth()
+            await this.login(response.data.number, response.data.password)
         } catch (e) {
-            console.log(e.response)
+            console.log(e)
         }
     }
 
