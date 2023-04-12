@@ -175,14 +175,6 @@ func TransferMoney(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-func Validate(c *gin.Context) {
-	acc, _ := c.Get("account")
-
-	c.JSON(http.StatusOK, gin.H{
-		"account": acc,
-	})
-}
-
 func Logout(c *gin.Context) {
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Auth", "none", 0, "", "", false, true)

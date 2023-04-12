@@ -48,7 +48,6 @@ func RequireAuth(c *gin.Context) {
 
 		c.Next()
 	} else {
-		fmt.Println("claims failed, token valid:", token.Valid)
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 }

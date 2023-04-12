@@ -34,9 +34,9 @@ func main() {
 	r.POST("/login", controllers.Login)
 	r.POST("/logout", controllers.Logout)
 
-	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
-	r.GET("/account", middleware.RequireAuth, controllers.GetAccountByID)
+	r.GET("/account", middleware.RequireAuth, controllers.GetAccount)
 	r.GET("/transactions", middleware.RequireAuth, controllers.GetTransactions)
+
 	r.GET("/accounts", controllers.GetAccounts)       // admin
 	r.DELETE("/accounts", controllers.DeleteAccounts) // admin
 	r.DELETE("/account", middleware.RequireAuth, controllers.DeleteAccount)

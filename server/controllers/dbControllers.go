@@ -36,7 +36,7 @@ func GetTransactions(c *gin.Context) {
 	c.JSON(http.StatusOK, transactions)
 }
 
-func GetAccountByID(c *gin.Context) {
+func GetAccount(c *gin.Context) {
 	acc, _ := c.Get("account")
 
 	account, err := storage.DB.GetAccountByID(acc.(models.Account).ID)
@@ -47,7 +47,19 @@ func GetAccountByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, account)
+	transactions, err := storage.DB.GetLastTransactions(acc.(models.Account).Number)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "failed to get transactions",
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"account":      account,
+		"transactions": transactions,
+	})
 }
 
 func DeleteAccount(c *gin.Context) {

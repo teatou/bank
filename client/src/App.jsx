@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import { CookiesProvider } from 'react-cookie';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -8,7 +7,6 @@ import {
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Signup from './pages/Signup'
 import { observer } from 'mobx-react-lite';
 import { Context } from './main';
 import styled from 'styled-components'
@@ -40,14 +38,6 @@ const router = createBrowserRouter([
         },
       ],
     },
-    {
-      path: "login",
-      element: <Login />,
-    },
-    {
-      path: "signup",
-      element: <Signup />,
-    },
   ]);
 
 const App = () => {
@@ -60,22 +50,20 @@ const App = () => {
     }, [])
 
     if (store.isLoading) {
-        return (
-            <div>Checking auth...</div>
-        )
-    }
-
-    if (!store.isAuth && localStorage.getItem('isAuth') === null) {
+      return (
+        <div>Loading...</div>
+      )
+    } else if (!store.isAuth && localStorage.getItem('isAuth') === null) {
         return (
           <Login/>
         )
+    } else {
+      return (
+        <RouterProvider router={router} fallbackElement={<div>Error</div>}/>
+      )
     }
 
-    return (
-        <CookiesProvider>
-            <RouterProvider router={router} fallbackElement={<div>Loading</div>}/>
-        </CookiesProvider>
-    )
+    
 }
 
 export default observer(App)

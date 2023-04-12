@@ -1,0 +1,32 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75vw;
+    padding: 4% 5%;
+}
+
+.card-info, .last-transactions {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-info {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+}
+
+.last-transactions {
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+}
+
+.transfer {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    background-color: bisque;
+}

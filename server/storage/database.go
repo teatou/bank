@@ -20,6 +20,8 @@ type Storage interface {
 	GetAccounts() ([]*models.Account, error)
 	GetAccountByID(int) (*models.Account, error)
 	GetAccountByNumber(int) (*models.Account, error)
+	GetTransactions(int) ([]*models.Transaction, error)
+	GetLastTransactions(int) ([]*models.Transaction, error)
 }
 
 type PostgresStore struct {
@@ -99,6 +101,29 @@ func (s *PostgresStore) GetTransactions(number int) ([]*models.Transaction, erro
 	query := fmt.Sprintf(`select * from transaction
 	where from_number = %d
 	or to_number = %d`, number, number)
+
+	rows, err := s.DB.Query(query)
+	if err != nil {
+		return nil, errors.New("error selecting from table")
+	}
+
+	transactions := []*models.Transaction{}
+	for rows.Next() {
+		transaction, err := scanIntoTransaction(rows)
+		if err != nil {
+			return nil, errors.New("error scanning")
+		}
+		transactions = append(transactions, transaction)
+	}
+
+	return transactions, nil
+}
+
+func (s *PostgresStore) GetLastTransactions(number int) ([]*models.Transaction, error) {
+	query := fmt.Sprintf(`select * from transaction
+	where from_number = %d
+	or to_number = %d
+	limit 5`, number, number)
 
 	rows, err := s.DB.Query(query)
 	if err != nil {

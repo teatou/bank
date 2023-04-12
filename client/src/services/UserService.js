@@ -8,4 +8,8 @@ export default class UserService {
     static fetchAccount() {
         return $api.get('/account')
     }
+
+    static fetchNavbar() {
+        return $api.get('/navbar')
+    }
 }

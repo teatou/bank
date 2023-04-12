@@ -1,17 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "../App.css";
 import { IconContext } from "react-icons";
 import { Context } from '../main';
+import '../styles/Sidebar.css'
+import { observer } from 'mobx-react-lite';
 
-function Navbar() {
+const Navbar = () => {
   const {store} = useContext(Context)
 
   return (
-    <div>
-      <div>{store.account ? store.account.firstName + ' ' + store.account.lastName : 'user' }</div>
-      <IconContext.Provider value={{ color: "undefined" }}>
+    <div className='sidebar'>
+      <div className='account-name'>{store.account.firstName + ' ' + store.account.lastName}</div>
+      <IconContext.Provider value={{ color: "black" }}>
         <nav>
           <ul>
             {SidebarData.map((item, index) => {
@@ -27,9 +29,14 @@ function Navbar() {
           </ul>
         </nav>
       </IconContext.Provider>
-      <button onClick={() => store.logout()}>logout</button>
+      <div className='logout'>
+        <button className='logout-btn' onClick={() => {
+          store.logout()
+          window.location.reload(false)
+          }}>logout</button>
+      </div>
     </div>
   );
 }
 
-export default Navbar;
+export default observer(Navbar);
