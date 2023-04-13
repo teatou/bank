@@ -18,7 +18,7 @@ const Home = () => {
         {store.transactions.map(t => <div key={t.id}>{t.sum}</div>)}
       </div>
       <div className='transfer'>
-      transfer
+        <input></input>
       </div>
     </main>
   )

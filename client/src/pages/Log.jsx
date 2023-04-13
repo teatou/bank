@@ -36,7 +36,7 @@ class LoginComponent extends React.Component {
     render() {
         return (
             <div>
-                <div className={`form-block-wrapper form-block-wrapper--is-${this.state.mode}`} ></div>
+                <div className={`form-block-wrapper`} ></div>
                 <section className={`form-block form-block--is-${this.state.mode}`}>
                     <header className="form-block__header">
                         <h1>{this.state.mode === 'login' ? 'Log in' : 'Sign up'}</h1>

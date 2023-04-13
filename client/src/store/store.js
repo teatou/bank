@@ -31,8 +31,7 @@ export default class Store {
 
     async login(number, password) {
         try {
-            const response = await AuthService.login(number, password)
-            console.log(response)
+            await AuthService.login(number, password)
             this.setAuth(true)
             localStorage.setItem('isAuth', 'true')
             await this.checkAuth()
@@ -44,7 +43,6 @@ export default class Store {
     async signup(firstName, lastName, password) {
         try {
             const response = await AuthService.signup(firstName, lastName, password)
-            console.log(response)
             this.setAuth(true)
             await this.login(response.data.number, response.data.password)
         } catch (e) {
@@ -69,7 +67,6 @@ export default class Store {
 
         try {
             const response = await $api.get('/account')
-            console.log(response)
             this.setAuth(true)
             this.setAccount(response.data.account)
             this.setTransactions(response.data.transactions)

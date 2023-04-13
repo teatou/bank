@@ -6,7 +6,6 @@ import {
   } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
-import Login from './pages/Login'
 import { observer } from 'mobx-react-lite';
 import { Context } from './main';
 import styled from 'styled-components'
