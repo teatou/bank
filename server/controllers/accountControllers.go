@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -119,15 +118,19 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	numberTo, err := strconv.Atoi(c.Query("to"))
-	if err != nil {
+	var req struct {
+		To  int `json:"to"`
+		Sum int `json:"sum"`
+	}
+
+	if c.Bind(&req) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid number",
+			"error": "failed to read body",
 		})
 		return
 	}
 
-	accountTo, err := storage.DB.GetAccountByNumber(numberTo)
+	accountTo, err := storage.DB.GetAccountByNumber(req.To)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "no such account",
@@ -135,22 +138,14 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	sum, err := strconv.Atoi(c.Query("sum"))
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid sum",
-		})
-		return
-	}
-
-	if sum > account.Balance {
+	if req.Sum > account.Balance {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "not enough money",
 		})
 		return
 	}
 
-	err = storage.DB.UpdateBalance(accountTo.Number, sum)
+	err = storage.DB.UpdateBalance(accountTo.Number, req.Sum)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "failed to add money",
@@ -158,7 +153,7 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	err = storage.DB.UpdateBalance(account.Number, -sum)
+	err = storage.DB.UpdateBalance(account.Number, -req.Sum)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "failed to retrieve money",
@@ -166,7 +161,7 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
-	transaction := newTransaction(account.Number, accountTo.Number, sum)
+	transaction := newTransaction(account.Number, accountTo.Number, req.Sum)
 	err = storage.DB.CreateTransaction(transaction)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
