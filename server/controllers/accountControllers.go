@@ -130,6 +130,13 @@ func TransferMoney(c *gin.Context) {
 		return
 	}
 
+	if req.Sum == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid sum",
+		})
+		return
+	}
+
 	accountTo, err := storage.DB.GetAccountByNumber(req.To)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

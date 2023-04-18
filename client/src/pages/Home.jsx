@@ -8,14 +8,15 @@ const Home = () => {
   const {store} = useContext(Context)
   const [to, setTo] = useState('')
   const [sum, setSum] = useState('')
+  const [transferError, setTransferError] = useState('')
 
   const transfer = async (e, to, sum) => {
     e.preventDefault()
     try {
       const response = await UserService.transferMoney(to, sum)
-      console.log(response)
+      setTransferError('Operation successful')
     } catch (e) {
-      console.log(e.response.data)
+      setTransferError('Operation failed: ' + e.response.data.error)
     }
   }
 
@@ -28,7 +29,7 @@ const Home = () => {
       </div>
       <div className='last-transactions'>
         <span>last transactions</span>
-        {store.transactions.map(t => <div key={t.id}>{t.sum}</div>)}
+        {store.transactions.length != 0 ? store.transactions.map(t => <div key={t.id}>{t.sum}</div>) : <div>No transactions</div>}
       </div>
       <div className='transfer'>
         <form onSubmit={(e) => transfer(e, to, sum)}>
@@ -36,6 +37,7 @@ const Home = () => {
           <input type="text" value={sum} onChange={(e) => setSum(e.target.value)}/>
           <button type="submit">transfer</button>
         </form>
+        <div>{transferError}</div>
       </div>
     </main>
   )
