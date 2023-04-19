@@ -123,6 +123,7 @@ func (s *PostgresStore) GetLastTransactions(number int) ([]*models.Transaction, 
 	query := fmt.Sprintf(`select * from transaction
 	where from_number = %d
 	or to_number = %d
+	order by created_at desc
 	limit 5`, number, number)
 
 	rows, err := s.DB.Query(query)

@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react-lite'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import UserService from '../services/UserService';
+import '../styles/History.css'
+import { Context } from '../main';
 
 const History = () => {
     const [transactions, setTransactions] = useState([])
+    const {store} = useContext(Context)
 
     useEffect(() => {
         getTransactions()
@@ -18,9 +21,13 @@ const History = () => {
         }
     }
     return (
-        <div>
-        {transactions.map(t => 
-            <div key={t.id}>{t.sum}</div>)}
+        <div className='history-container'>
+            {transactions.length != 0 ? transactions.map(t =>
+            <div className='lastTransaction' key={t.id}>
+                {t.from == store.account.number ? <span>+</span> : <span>-</span>}
+                <span>{t.from === store.account.number ? t.to : t.from}</span>
+                <span>{t.from === store.account.number ? '+' : '-'} ${t.sum}</span>
+            </div>) : <div>No transactions</div>}
         </div>
     )
 }

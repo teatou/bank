@@ -8,8 +8,6 @@ main {
 .card-info, .last-transactions {
     flex-basis: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .card-info {
@@ -18,15 +16,123 @@ main {
     flex-direction: column;
 }
 
+.card {
+    width: 300px;
+    height: 200px;
+    background-color: black;
+    color: #eeeeee;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+}
+
+.debit-chip {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.debit {
+    font-size: 20px;
+}
+
+.chip {
+    position: relative;
+    top: -10px;
+}
+
+.balance {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.name-number {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.cardNumber {
+    align-self: end;
+}
+
+.accountName {
+    text-transform: uppercase;
+}
+
+.activated {
+    align-self: end;
+    justify-self: end;
+}
+
 .last-transactions {
     background-color: beige;
     display: flex;
     flex-direction: column;
 }
 
+.lastTransaction {
+    display: flex;
+    justify-content: space-between;
+}
+
 .transfer {
     flex-basis: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background-color: bisque;
+}
+
+.transfer form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.labell {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px;
+}
+
+.transfer input {
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    background: none;
+    border-radius: 15px;
+    background-color: #eeeeee;
+    padding: 0 15px;
+    color: #223254;
+    transition: all .15s ease;
+}
+
+.transfer input::placeholder {
+    color: #777777;
+}
+
+.transfer input:focus {
+    outline: none;
+}
+
+.transfer button {
+    border: none;
+    text-decoration: none;
+    width: 36px;
+    height: 36px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 6px;
+}
+
+.transfer button:hover {
+    cursor: pointer;
+    background-color: #111111;
+    transition: 0.3s;
 }
