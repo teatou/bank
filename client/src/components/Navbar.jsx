@@ -5,6 +5,7 @@ import "../App.css";
 import { IconContext } from "react-icons";
 import { Context } from '../main';
 import '../styles/Sidebar.css'
+import {AiOutlinePoweroff} from 'react-icons/ai'
 import { observer } from 'mobx-react-lite';
 
 const Navbar = () => {
@@ -33,7 +34,10 @@ const Navbar = () => {
         <button className='logout-btn' onClick={() => {
           store.logout()
           window.location.reload(false)
-          }}>logout</button>
+          }}>
+            <AiOutlinePoweroff/>
+            <span>Logout</span>
+          </button>
       </div>
     </div>
   );

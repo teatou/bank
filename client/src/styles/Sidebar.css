@@ -3,7 +3,22 @@
     width: 25vw;
     display: flex;
     flex-direction: column;
-    padding: 4% 5%;
+    padding: 4% 4%;
+    background-color: #eeeeee;
+}
+
+li {
+    background-color: gray;
+    margin: 10% 0;
+}
+
+li:hover {
+    background-color: #909090;
+}
+
+li a {
+    height: 100%;
+    width: 100%;
     background-color: #eeeeee;
 }
 
@@ -16,6 +31,17 @@
 }
 
 .logout {
-    background-color: brown;
     flex-basis: 10%;
+}
+
+.logout button {
+    width: 86px;
+    height: 34px;
+    background-color: brown;
+    border-radius: 15px;
+    border: none;
+}
+
+.logout button:hover {
+    background-color: #909090;
 }
