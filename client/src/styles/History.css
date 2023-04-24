@@ -8,4 +8,14 @@ table {
 
 th {
     text-align: left;
+    
+}
+
+.sorting-container {
+    display: grid;
+}
+
+.sorting-icon:hover {
+    cursor: pointer;
+    color: gray;
 }

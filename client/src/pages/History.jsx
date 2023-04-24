@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import UserService from '../services/UserService';
 import '../styles/History.css'
 import { Context } from '../main';
+import {GoTriangleDown, GoTriangleUp} from 'react-icons/go'
 
 const History = () => {
     const [transactions, setTransactions] = useState([])
@@ -101,18 +102,24 @@ const History = () => {
                     <tr>
                         <th>
                             <span>Details</span>
-                            <button onClick={sortDetailsUp}>up</button>
-                            <button onClick={sortDetailsDown}>down</button>
+                            <div className='sorting-container'>
+                                <GoTriangleUp className='sorting-icon' onClick={sortDetailsUp}/>
+                                <GoTriangleDown className='sorting-icon' onClick={sortDetailsDown}/>
+                            </div>
                         </th>
                         <th>
                             <span>Date</span>
-                            <button onClick={sortDateUp}>up</button>
-                            <button onClick={sortDateDown}>down</button>
+                            <div className='sorting-container'>
+                                <GoTriangleUp className='sorting-icon' onClick={sortDateUp}/>
+                                <GoTriangleDown className='sorting-icon' onClick={sortDateDown}/>
+                            </div>
                         </th>
                         <th>
                             <span>Total</span>
-                            <button onClick={sortTotalUp}>up</button>
-                            <button onClick={sortTotalDown}>down</button>
+                            <div className='sorting-container'>
+                                <GoTriangleUp className='sorting-icon' onClick={sortTotalUp}/>
+                                <GoTriangleDown className='sorting-icon' onClick={sortTotalDown}/>
+                            </div>
                         </th>
                     </tr>
                     {transactions.length != 0 ? transactions.map(t =>
