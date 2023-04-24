@@ -101,31 +101,37 @@ const History = () => {
                 <tbody>
                     <tr>
                         <th>
-                            <span>Details</span>
-                            <div className='sorting-container'>
-                                <GoTriangleUp className='sorting-icon' onClick={sortDetailsUp}/>
-                                <GoTriangleDown className='sorting-icon' onClick={sortDetailsDown}/>
+                            <div className='header-container'>
+                                <span>Details</span>
+                                <div className='sorting-container'>
+                                    <GoTriangleUp className='sorting-icon' onClick={sortDetailsUp}/>
+                                    <GoTriangleDown className='sorting-icon' onClick={sortDetailsDown}/>
+                                </div>
                             </div>
                         </th>
                         <th>
-                            <span>Date</span>
-                            <div className='sorting-container'>
-                                <GoTriangleUp className='sorting-icon' onClick={sortDateUp}/>
-                                <GoTriangleDown className='sorting-icon' onClick={sortDateDown}/>
+                            <div className='header-container'>
+                                <span>Date</span>
+                                <div className='sorting-container'>
+                                    <GoTriangleUp className='sorting-icon' onClick={sortDateUp}/>
+                                    <GoTriangleDown className='sorting-icon' onClick={sortDateDown}/>
+                                </div>
                             </div>
                         </th>
                         <th>
-                            <span>Total</span>
-                            <div className='sorting-container'>
-                                <GoTriangleUp className='sorting-icon' onClick={sortTotalUp}/>
-                                <GoTriangleDown className='sorting-icon' onClick={sortTotalDown}/>
+                            <div className='header-container'>
+                                <span>Total</span>
+                                <div className='sorting-container'>
+                                    <GoTriangleUp className='sorting-icon' onClick={sortTotalUp}/>
+                                    <GoTriangleDown className='sorting-icon' onClick={sortTotalDown}/>
+                                </div>
                             </div>
                         </th>
                     </tr>
                     {transactions.length != 0 ? transactions.map(t =>
                     <tr key={t.id}>
                         <td>{t.from === store.account.number ? t.to : t.from}</td>
-                        <td>{t.createdAt}</td>
+                        <td>{t.createdAt.slice(8, 10) + '/' + t.createdAt.slice(5, 7) + '/' + t.createdAt.slice(2, 4) + ' ' + t.createdAt.slice(11,16)}</td>
                         <td>{t.from === store.account.number ? '+' : '-'} ${t.sum}</td>
                     </tr>) : <tr>
                         <td>no data</td>

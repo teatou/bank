@@ -4,6 +4,7 @@ import '../styles/Home.css'
 import { Context } from '../main';
 import UserService from '../services/UserService';
 import {FcSimCardChip} from 'react-icons/fc'
+import {TbArrowsUpDown} from 'react-icons/tb'
 
 const Home = () => {
   const {store} = useContext(Context)
@@ -20,6 +21,14 @@ const Home = () => {
     } catch (e) {
       setTransferError('Operation failed: ' + e.response.data.error)
     }
+  }
+
+  const green = {
+    color: '#228c22'
+  }
+
+  const red = {
+    color: '#d21404'
   }
 
   return (
@@ -42,9 +51,9 @@ const Home = () => {
       <div className='last-transactions'>
         <h1>Last transactions</h1>
         {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
-            {t.from == store.account.number ? <span>+</span> : <span>-</span>}
+            <TbArrowsUpDown/>
             <span>{t.from === store.account.number ? t.to : t.from}</span>
-            <span>{t.from === store.account.number ? '+' : '-'} ${t.sum}</span>
+            <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
           </div>) : <div>No transactions</div>}
       </div>
       <div className='transfer'>

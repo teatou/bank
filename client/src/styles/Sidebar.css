@@ -4,26 +4,33 @@
     display: flex;
     flex-direction: column;
     padding: 4% 4%;
-    background-color: #eeeeee;
+    background-color: #111111;
+    color: #dddddd;
 }
 
 li {
-    background-color: gray;
     margin: 10% 0;
 }
 
-li:hover {
-    background-color: #909090;
+li a {
+    color: #dddddd;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 
-li a {
-    height: 100%;
-    width: 100%;
-    background-color: #eeeeee;
+li a:hover {
+    color: #909090;
+    transition: all 0.4s;
+}
+
+li a span {
+    margin-left: 10px;
 }
 
 .account-name {
     flex-basis: 10%;
+    font-size: 26px;
 }
 
 .sidebar nav {
@@ -34,14 +41,31 @@ li a {
     flex-basis: 10%;
 }
 
-.logout button {
-    width: 86px;
+.logout-btn {
+    width: 100%;
     height: 34px;
-    background-color: brown;
+    padding: 0 6px;
+    background-color: #dddddd;
     border-radius: 15px;
     border: none;
+    display: flex;
+    align-items: center;
 }
 
-.logout button:hover {
+.logout-btn:hover {
+    transition: all 0.4s;
     background-color: #909090;
+}
+
+.logout-btn span {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    left: -6px;
+}
+
+.logout-icon {
+    position: relative;
+    left: 6px;
 }

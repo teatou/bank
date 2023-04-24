@@ -1,5 +1,5 @@
 .history-container {
-    width: 100%;
+    width: 75vw;
 }
 
 table {
@@ -8,7 +8,16 @@ table {
 
 th {
     text-align: left;
-    
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+}
+
+.header-container span {
+    font-size: 1.6rem;
+    padding-right: 0.2rem;
 }
 
 .sorting-container {

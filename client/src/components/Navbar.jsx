@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "../App.css";
@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div className='sidebar'>
       <div className='account-name'>{store.account.firstName + ' ' + store.account.lastName}</div>
-      <IconContext.Provider value={{ color: "black" }}>
+      <IconContext.Provider value={{size: 24}}>
         <nav>
           <ul>
             {SidebarData.map((item, index) => {
@@ -35,7 +35,7 @@ const Navbar = () => {
           store.logout()
           window.location.reload(false)
           }}>
-            <AiOutlinePoweroff/>
+            <AiOutlinePoweroff size={24} className='logout-icon'/>
             <span>Logout</span>
           </button>
       </div>
