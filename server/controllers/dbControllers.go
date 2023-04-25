@@ -36,6 +36,21 @@ func GetTransactions(c *gin.Context) {
 	c.JSON(http.StatusOK, transactions)
 }
 
+func GetTransactionsMonth(c *gin.Context) {
+	acc, _ := c.Get("account")
+
+	transactions, err := storage.DB.GetTransactionsMonth(acc.(models.Account).Number)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, transactions)
+}
+
 func GetAccount(c *gin.Context) {
 	acc, _ := c.Get("account")
 

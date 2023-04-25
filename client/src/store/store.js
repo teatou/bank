@@ -5,6 +5,7 @@ import { makeAutoObservable } from 'mobx'
 export default class Store {
     account = {}
     transactions = []
+    transactionsMonth = []
     isAuth = false
     isLoading = false
     isFirstTime = true
@@ -27,6 +28,41 @@ export default class Store {
 
     setTransactions(transactions) {
         this.transactions = transactions
+    }
+
+    setTransactionsMonth(transactions) {
+        const data = new Map()
+        
+        for (let i = 0; i < transactions.length; i++) {
+            let t = transactions[i]
+            // let date = t.createdAt.slice(5, 7) + '/' + t.createdAt.slice(8, 10) // daily
+            let date = t.createdAt.slice(11, 13) + '/' + t.createdAt.slice(14, 16)
+            if (data.has(date)) {
+                data.set(date, (data.get(date) ?? 0) + t.sum)
+            } else {
+                data.set(date, t.sum)
+            }
+        }
+
+        let keys = []
+        for (let key of data) {
+            keys.push(key)
+        }   
+
+        const sp = {
+            labels: keys,
+            datasets: [
+                {
+                    label: "Money flow",
+                    data: [...data.values()],
+                    fill: true,
+                    backgroundColor: "rgba(75,192,192,0.2)",
+                    borderColor: "rgba(75,192,192,1)"
+                },
+            ]
+        }
+
+        this.transactionsMonth = sp
     }
 
     async login(number, password) {
@@ -57,6 +93,7 @@ export default class Store {
             this.setAuth(false)
             this.setAccount({})
             this.setTransactions([])
+            this.setTransactionsMonth([])
         } catch (e) {
             console.log(e.response)
         }
@@ -70,6 +107,8 @@ export default class Store {
             this.setAuth(true)
             this.setAccount(response.data.account)
             this.setTransactions(response.data.transactions)
+            const response2 = await $api.get('/transactions/month')
+            this.setTransactionsMonth(response2.data)
         } catch (e) {
             await this.logout()
             console.log(e.response)

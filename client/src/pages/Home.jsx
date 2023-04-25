@@ -5,6 +5,27 @@ import { Context } from '../main';
 import UserService from '../services/UserService';
 import {FcSimCardChip} from 'react-icons/fc'
 import {TbArrowsUpDown} from 'react-icons/tb'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Home = () => {
   const {store} = useContext(Context)
@@ -31,6 +52,18 @@ const Home = () => {
     color: '#d21404'
   }
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+      },
+    },
+  };
+
   return (
     <main>
       <div className='card-info'>
@@ -48,14 +81,6 @@ const Home = () => {
           <span className='activated'>Activated {store.account.createdAt != undefined ? store.account.createdAt.slice(5, 7) + '/' + store.account.createdAt.slice(2, 4) : '00/00'}</span>
         </div>
       </div>
-      <div className='last-transactions'>
-        <h1>Last transactions</h1>
-        {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
-            <TbArrowsUpDown/>
-            <span>{t.from === store.account.number ? t.to : t.from}</span>
-            <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
-          </div>) : <div>No transactions</div>}
-      </div>
       <div className='transfer'>
         <h1>Quick transfer</h1>
         <form onSubmit={(e) => transfer(e, to, sum)}>
@@ -68,6 +93,17 @@ const Home = () => {
           <button type="submit">{String('>')}</button>
         </form>
         <div>{transferError}</div>
+      </div>
+      <div className='chart'>
+        <Line options={options} data={store.transactionsMonth}></Line>
+      </div>
+      <div className='last-transactions'>
+        <h1>Last transactions</h1>
+        {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
+            <TbArrowsUpDown/>
+            <span>{t.from === store.account.number ? t.to : t.from}</span>
+            <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
+          </div>) : <div>No transactions</div>}
       </div>
     </main>
   )

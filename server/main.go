@@ -36,6 +36,7 @@ func main() {
 
 	r.GET("/account", middleware.RequireAuth, controllers.GetAccount)
 	r.GET("/transactions", middleware.RequireAuth, controllers.GetTransactions)
+	r.GET("transactions/month", middleware.RequireAuth, controllers.GetTransactionsMonth)
 
 	r.GET("/accounts", controllers.GetAccounts)       // admin
 	r.DELETE("/accounts", controllers.DeleteAccounts) // admin

@@ -5,9 +5,9 @@ main {
     padding: 4% 5%;
 }
 
-.card-info, .last-transactions {
-    flex-basis: 50%;
+.card-info, .last-transactions, .transfer {
     display: flex;
+    flex-basis: 50%;
 }
 
 .card-info {
@@ -80,7 +80,6 @@ main {
 }
 
 .transfer {
-    flex-basis: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -134,4 +133,8 @@ main {
     cursor: pointer;
     background-color: #111111;
     transition: 0.3s;
+}
+
+.chart {
+    flex-basis: 50%;
 }
