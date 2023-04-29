@@ -55,9 +55,8 @@ export default class Store {
                 {
                     label: "Money flow",
                     data: [...data.values()],
+                    borderColor: "#e0e9b6",
                     fill: true,
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    borderColor: "rgba(75,192,192,1)"
                 },
             ]
         }

@@ -1,13 +1,29 @@
+:root {
+    --card-color: #151419;
+    --transfer-color: #eeeeee;
+  }
+
 main {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     width: 75vw;
+    height: 100vh;
     padding: 4% 5%;
 }
 
-.card-info, .last-transactions, .transfer {
+.card-transfer {
     display: flex;
-    flex-basis: 50%;
+    flex-direction: column;
+    width: 30vw;
+}
+
+.chart-transactions {
+    width: 30vw;
+}
+
+.last-transactions, .transfer {
+    display: flex;
 }
 
 .card-info {
@@ -18,7 +34,7 @@ main {
 .card {
     width: 300px;
     height: 200px;
-    background-color: black;
+    background-color: var(--card-color);
     color: #eeeeee;
     border-radius: 15px;
     display: flex;
@@ -65,23 +81,21 @@ main {
     justify-self: end;
 }
 
-.last-transactions {
-    display: flex;
-    flex-direction: column;
-}
-
 .lastTransaction {
     display: flex;
     justify-content: space-between;
+    margin: 0.3rem 0 0;
+    padding: 0.7rem 0.6rem;
 }
 
 .greenred {
     text-shadow: 0px 0px 1px;
 }
 
-.transfer {
+.transfer, .last-transactions {
     display: flex;
     flex-direction: column;
+    padding: 4rem 0;
 }
 
 .transfer form {
@@ -104,7 +118,7 @@ main {
     font-weight: 500;
     background: none;
     border-radius: 15px;
-    background-color: #eeeeee;
+    background-color: var(--transfer-color);
     padding: 0 15px;
     color: #223254;
     transition: all .15s ease;
@@ -123,7 +137,7 @@ main {
     text-decoration: none;
     width: 36px;
     height: 36px;
-    background-color: black;
+    background-color: var(--card-color);
     color: white;
     font-size: 18px;
     border-radius: 6px;
@@ -136,5 +150,43 @@ main {
 }
 
 .chart {
-    flex-basis: 50%;
+    
+}
+
+.line {
+    min-height: 200px;
+}
+
+.footer {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+@media (max-width: 1400px) {
+    main {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .card-transfer {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .card-info, .transfer {
+        width: 50%;
+        padding: 0;
+    }
+
+    .chart-transactions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .chart, .last-transactions {
+        
+    }
 }
