@@ -14,5 +14,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Context.Provider value={{ store }}>
       <App/>
     </Context.Provider>
-  
 )
