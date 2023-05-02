@@ -5,6 +5,7 @@ import { Context } from '../main';
 import UserService from '../services/UserService';
 import {FcSimCardChip} from 'react-icons/fc'
 import {TbArrowsUpDown} from 'react-icons/tb'
+import {BsCheckSquareFill} from 'react-icons/bs'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -116,7 +117,10 @@ const Home = () => {
         <div className='last-transactions'>
             <h1>Last transactions</h1>
             {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
-                <TbArrowsUpDown/>
+                <div className='operation'>
+                  <BsCheckSquareFill fill='#171519' className='operation-picture'/>
+                  <span>{t.createdAt.slice(8, 10) + '/' + t.createdAt.slice(5, 7) + '/' + t.createdAt.slice(0, 4) + ' ' + t.createdAt.slice(11, 16)}</span>
+                </div>
                 <span>{t.from === store.account.number ? t.to : t.from}</span>
                 <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
             </div>) : <div>No transactions</div>}

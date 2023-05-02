@@ -85,8 +85,31 @@ main {
 .lastTransaction {
     display: flex;
     justify-content: space-between;
-    margin: 0.3rem 0 0;
-    padding: 0.7rem 0.6rem;
+    align-items: center;
+    padding: 0 0 0.6rem;
+}
+
+.operation {
+    display: flex;
+    align-items: center;
+    flex-basis: 40%;
+}
+
+.operation span {
+    margin-left: 3%;
+    color: #424242;
+    font-size: 14px;
+}
+
+.operation-picture {
+    height: 32px;
+    width: 32px;
+    border-radius: 5px;
+    background-color: #bfce7e;
+}
+
+.last-transactions span {
+    flex-basis: 10%;
 }
 
 .greenred {
@@ -139,7 +162,7 @@ main {
     height: 44px;
     background-color: var(--card-color);
     color: white;
-    background-color: #111111;
+    background-color: var(--card-color);
     font-size: 18px;
     border-radius: 6px;
 }
@@ -243,5 +266,18 @@ main {
         width: 280px;
         height: 200px;
         padding: 26px;
+    }
+
+    .labell {
+        margin-right: 0.4rem;
+    }
+
+    .transfer input {
+        padding: 0 0 0 10px;
+        height: 46px;
+    }
+
+    .transfer button {
+        font-size: 18px;
     }
 }
