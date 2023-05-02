@@ -7,19 +7,22 @@ main {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 75vw;
+    width: 80vw;
     height: 100vh;
     padding: 4% 5%;
+    margin-left: 20vw;
+    overflow-x: hidden;
 }
 
 .card-transfer {
     display: flex;
     flex-direction: column;
-    width: 30vw;
+    width: 24vw;
+    margin: 0;
 }
 
 .chart-transactions {
-    width: 30vw;
+    width: 36vw;
 }
 
 .last-transactions, .transfer {
@@ -104,7 +107,7 @@ main {
 }
 
 .labell {
-    width: 100%;
+    width: 50%;
     max-width: 280px;
     margin-right: 1.2rem;
 }
@@ -145,12 +148,12 @@ main {
 
 .transfer button:hover {
     cursor: pointer;
-    background-color: #111111;
+    background-color: #333333;
     transition: 0.3s;
 }
 
-.chart {
-    
+.error {
+    margin-top: 16px;
 }
 
 .line {
@@ -168,21 +171,25 @@ main {
     main {
         flex-direction: column;
         flex-wrap: nowrap;
+        justify-content: unset;
     }
     .card-transfer {
         flex-direction: row;
         width: 100%;
     }
-
+    
     .card-info, .transfer {
-        width: 50%;
         padding: 0;
     }
 
+    .transfer { padding-left: 6%;}
+
     .chart-transactions {
-        flex-direction: row;
-        flex-wrap: wrap;
         width: 100%;
-        margin-top: 2rem;
+        margin-top: 6%;
+    }
+
+    .chart {
+
     }
 }

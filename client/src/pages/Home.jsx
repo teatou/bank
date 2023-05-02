@@ -105,7 +105,7 @@ const Home = () => {
             </label>
             <button type="submit">{String('>')}</button>
           </form>
-          <div>{transferError}</div>
+          <div className='error'>{transferError}</div>
         </div>  
       </div>
       <div className='chart-transactions'>
