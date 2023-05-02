@@ -3,15 +3,26 @@
     width: 20vw;
     display: flex;
     flex-direction: column;
-    padding: 4% 4%;
+    padding: 3.3vw;
     background-color: #111111;
     color: #dddddd;
     position: fixed;
     z-index: 1;
 }
 
+.icon2 {
+    display: none;
+}
+
+.bottom-nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 li {
-    margin: 10% 0;
+    margin: 0 0 10% 0;
 }
 
 li a {
@@ -30,17 +41,7 @@ li a span {
     margin-left: 10px;
 }
 
-.account-name {
-    flex-basis: 10%;
-    font-size: 26px;
-}
-
-.sidebar nav {
-    flex-basis: 80%;
-}
-
 .logout {
-    flex-basis: 10%;
     display: flex;
     align-items: end;
 }
@@ -50,10 +51,11 @@ li a span {
     height: 34px;
     padding: 0 6px;
     background-color: #dddddd;
-    border-radius: 15px;
+    border-radius: 10px;
     border: none;
     display: flex;
     align-items: center;
+    font-size: 16px;
 }
 
 .logout-btn:hover {
@@ -72,4 +74,54 @@ li a span {
 .logout-icon {
     position: relative;
     left: 6px;
+}
+
+@media (max-width: 1200px) {
+    li {
+        margin: 15% 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .icon1 {
+        display: none;
+    }
+
+    .icon2 {
+        display: flex;
+    }
+
+    .account-name {
+        justify-content: center;
+    }
+
+    .bottom-nav {
+        width: 100%;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+    li {
+        padding: 45% 0;
+    }
+    
+    .logout span, li a span {
+        display: none;
+    }
+
+    .logout {
+        width: fit-content;
+    }
+
+    .logout-icon {
+        left: 0px;
+    }
+
+    .icon1 {
+
+    }
 }

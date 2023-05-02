@@ -78,13 +78,13 @@ const Home = () => {
 
   return (
     <main>
-      <div className='card-transfer'>
+      <div className='first'>
         <div className='card-info'>
           <h1>My card</h1>
           <div className='card'>
             <div className='debit-chip'>
               <span className='debit'>Debit</span>
-              <FcSimCardChip className='chip' size={46} color='white'/>
+              <FcSimCardChip id='chip' color='white'/>
             </div>
             <span className='balance'>${store.account.balance}</span>
             <div className='name-number'>
@@ -94,6 +94,8 @@ const Home = () => {
             <span className='activated'>Activated {store.account.createdAt != undefined ? store.account.createdAt.slice(5, 7) + '/' + store.account.createdAt.slice(2, 4) : '00/00'}</span>
           </div>
         </div>
+      </div>
+      <div className='second'>
         <div className='transfer'>
           <h1>Quick transfer</h1>
           <form onSubmit={(e) => transfer(e, to, sum)}>
@@ -107,28 +109,18 @@ const Home = () => {
           </form>
           <div className='error'>{transferError}</div>
         </div>  
-      </div>
-      <div className='chart-transactions'>
         <div className='chart'>
           <h1>Money flow</h1>
           <Line className='line' options={options} data={store.transactionsMonth} backgroundColor={'#cccccc'}></Line>
         </div>
         <div className='last-transactions'>
-          <h1>Last transactions</h1>
-          <div className='lastTransaction'>
-            <span>Operation type</span>
-            <span>From/to</span>
-            <span>Amount</span>
-          </div>
-          {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
-              <TbArrowsUpDown/>
-              <span>{t.from === store.account.number ? t.to : t.from}</span>
-              <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
+            <h1>Last transactions</h1>
+            {store.transactions.length != 0 ? store.transactions.map(t => <div className='lastTransaction' key={t.id}>
+                <TbArrowsUpDown/>
+                <span>{t.from === store.account.number ? t.to : t.from}</span>
+                <span className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</span>
             </div>) : <div>No transactions</div>}
-        </div>
-      </div>
-      <div className='footer'>
-        footer
+          </div>
       </div>
     </main>
   )
