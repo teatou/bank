@@ -4,7 +4,6 @@ import '../styles/Home.css'
 import { Context } from '../main';
 import UserService from '../services/UserService';
 import {FcSimCardChip} from 'react-icons/fc'
-import {TbArrowsUpDown} from 'react-icons/tb'
 import {BsCheckSquareFill} from 'react-icons/bs'
 import {
   Chart as ChartJS,
@@ -112,7 +111,7 @@ const Home = () => {
         </div>  
         <div className='chart'>
           <h1>Money flow</h1>
-          <Line className='line' options={options} data={store.transactionsMonth} backgroundColor={'#cccccc'}></Line>
+          <Line className='line' data={store.transactionsMonth} options={options}></Line>
         </div>
         <div className='last-transactions'>
             <h1>Last transactions</h1>

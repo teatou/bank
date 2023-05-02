@@ -5,7 +5,16 @@ import { makeAutoObservable } from 'mobx'
 export default class Store {
     account = {}
     transactions = []
-    transactionsMonth = []
+    transactionsMonth = {
+        datasets: [
+            {
+                label: "Money flow",
+                borderColor: "#e0e9b6",
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+            },
+        ]
+    }
     isAuth = false
     isLoading = false
     isFirstTime = true
@@ -55,8 +64,9 @@ export default class Store {
                 {
                     label: "Money flow",
                     data: [...data.values()],
-                    borderColor: "#e0e9b6",
                     fill: true,
+                    borderColor: "#e0e9b6",
+                    backgroundColor: "rgba(75,192,192,0.2)",
                 },
             ]
         }

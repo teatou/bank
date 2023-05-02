@@ -94,27 +94,35 @@ const History = () => {
         setTransactions(tr)
     }
 
+    const green = {
+        color: '#228c22'
+      }
+    
+      const red = {
+        color: '#d21404'
+      }
+
     return (
         <div className='history-container'>
-            <h1>Transactions</h1>
+            <h1>My transactions</h1>
             <table>
                 <tbody>
                     <tr>
-                        <th>
-                            <div className='header-container'>
-                                <span>Details</span>
-                                <div className='sorting-container'>
-                                    <GoTriangleUp className='sorting-icon' onClick={sortDetailsUp}/>
-                                    <GoTriangleDown className='sorting-icon' onClick={sortDetailsDown}/>
-                                </div>
-                            </div>
-                        </th>
                         <th>
                             <div className='header-container'>
                                 <span>Date</span>
                                 <div className='sorting-container'>
                                     <GoTriangleUp className='sorting-icon' onClick={sortDateUp}/>
                                     <GoTriangleDown className='sorting-icon' onClick={sortDateDown}/>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div className='header-container'>
+                                <span>Details</span>
+                                <div className='sorting-container'>
+                                    <GoTriangleUp className='sorting-icon' onClick={sortDetailsUp}/>
+                                    <GoTriangleDown className='sorting-icon' onClick={sortDetailsDown}/>
                                 </div>
                             </div>
                         </th>
@@ -130,9 +138,9 @@ const History = () => {
                     </tr>
                     {transactions.length != 0 ? transactions.map(t =>
                     <tr key={t.id}>
-                        <td>{t.from === store.account.number ? t.to : t.from}</td>
                         <td>{t.createdAt.slice(8, 10) + '/' + t.createdAt.slice(5, 7) + '/' + t.createdAt.slice(2, 4) + ' ' + t.createdAt.slice(11,16)}</td>
-                        <td>{t.from === store.account.number ? '+' : '-'} ${t.sum}</td>
+                        <td>{t.from === store.account.number ? t.to : t.from}</td>
+                        <td className='greenred' style={t.from === store.account.number ? green : red}>{t.from === store.account.number ? '+' : '-'}${t.sum}</td>
                     </tr>) : <tr>
                         <td>no data</td>
                         <td>no data</td>

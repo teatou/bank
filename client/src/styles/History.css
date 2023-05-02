@@ -1,13 +1,36 @@
 .history-container {
-    width: 75vw;
+    width: 80vw;
+    height: 100vh;
+    padding: 3.3vw;
+    margin-left: 20vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.history-container h1 {
+    margin-bottom: 3.2vw;
+    padding: 0;
 }
 
 table {
     width: 100%;
+    color: #111111;
+    border-collapse: collapse;
+    
+}
+
+th, tr, td {
+    padding:  1rem;
 }
 
 th {
     text-align: left;
+    background-color: #b7c583;
+    font-weight: 200;
+}
+
+tr:nth-child(odd) {
+    background-color: #eeeeee;
 }
 
 .header-container {
