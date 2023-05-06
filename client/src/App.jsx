@@ -51,7 +51,7 @@ const App = () => {
 
     if (store.isLoading) {
       return (
-        <div>Loading...</div>
+        <div className='loading'>Loading...</div>
       )
     } else if (!store.isAuth && localStorage.getItem('isAuth') === null) {
         return (
