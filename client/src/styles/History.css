@@ -24,7 +24,6 @@ th, tr, td {
 }
 
 th {
-    text-align: left;
     background-color: #b7c583;
     font-weight: 200;
 }
@@ -50,4 +49,19 @@ tr:nth-child(odd) {
 .sorting-icon:hover {
     cursor: pointer;
     color: gray;
+}
+
+@media (max-width: 900px) {
+    .history-container {
+        width: calc(100vw - 60px);
+        margin-left: 60px;
+    }
+
+    th, tr, td {
+        padding: 1rem 0.5rem;
+    }
+
+    .header-container span {
+        font-size: 1.4rem;
+    }
 }
