@@ -6,13 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
 	"github.com/teatou/bank/server/controllers"
-	"github.com/teatou/bank/server/initializers"
 	"github.com/teatou/bank/server/middleware"
 	"github.com/teatou/bank/server/storage"
 )
 
 func init() {
-	initializers.LoadEnvVars()
+	// initializers.LoadEnvVars() development
 	storage.ConnectToDb()
 	storage.DB.Init()
 }
