@@ -20,7 +20,7 @@
 }
  .form-block-wrapper {
 	 opacity: 0.92;
-	 background-color: #333333;
+	 background-color: #f0f0f0;
 }
 
  .form-block {
@@ -28,7 +28,7 @@
 	 margin: 25vh auto 0;
 	 width: 285px;
 	 padding: 25px;
-	 background: #dddddd;
+	 background: #fdfdfd;
 	 border-radius: 2px;
 	 color: #111111;
 	 -webkit-box-shadow: 0px 0px 16px 9px rgba(0, 0, 0, 0.07);
@@ -73,7 +73,7 @@
 	 font-size: 16px;
 	 padding: 14px 10px;
 	 margin-bottom: 15px;
-	 background: #ccccccee;
+	 background: #edededee;
 	 border: 1px solid #ccccccff;
 	 border-radius: 1px;
 }

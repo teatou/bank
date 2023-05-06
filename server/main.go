@@ -37,11 +37,11 @@ func main() {
 	r.GET("/account", middleware.RequireAuth, controllers.GetAccount)
 	r.GET("/transactions", middleware.RequireAuth, controllers.GetTransactions)
 	r.GET("transactions/month", middleware.RequireAuth, controllers.GetTransactionsMonth)
+	r.POST("/transfer", middleware.RequireAuth, controllers.TransferMoney)
+	r.DELETE("/account", middleware.RequireAuth, controllers.DeleteAccount)
 
 	r.GET("/accounts", controllers.GetAccounts)       // admin
 	r.DELETE("/accounts", controllers.DeleteAccounts) // admin
-	r.DELETE("/account", middleware.RequireAuth, controllers.DeleteAccount)
-	r.POST("/transfer", middleware.RequireAuth, controllers.TransferMoney)
 
 	r.Run()
 }

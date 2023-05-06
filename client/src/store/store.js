@@ -44,8 +44,8 @@ export default class Store {
         
         for (let i = 0; i < transactions.length; i++) {
             let t = transactions[i]
-            // let date = t.createdAt.slice(5, 7) + '/' + t.createdAt.slice(8, 10) // daily
-            let date = t.createdAt.slice(11, 13) + '/' + t.createdAt.slice(14, 16)
+            let date = t.createdAt.slice(8, 10) + '/' +t.createdAt.slice(5, 7)
+            // let date = t.createdAt.slice(11, 13) + '/' + t.createdAt.slice(14, 16) every minute
             if (data.has(date)) {
                 data.set(date, (data.get(date) ?? 0) + t.sum)
             } else {
