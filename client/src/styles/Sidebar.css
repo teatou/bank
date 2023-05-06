@@ -69,6 +69,7 @@ li a span {
     justify-content: center;
     position: relative;
     left: -6px;
+    text-transform: capitalize;
 }
 
 .logout-icon {

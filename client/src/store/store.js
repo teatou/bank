@@ -80,8 +80,10 @@ export default class Store {
             this.setAuth(true)
             localStorage.setItem('isAuth', 'true')
             await this.checkAuth()
+            return ''
         } catch (e) {
             console.log(e.response.data)
+            return e.response.data
         }
     }
 
@@ -90,8 +92,10 @@ export default class Store {
             const response = await AuthService.signup(firstName, lastName, password)
             this.setAuth(true)
             await this.login(response.data.number, response.data.password)
+            return ''
         } catch (e) {
-            console.log(e)
+            console.log(e.response.data)
+            return e.response.data
         }
     }
 

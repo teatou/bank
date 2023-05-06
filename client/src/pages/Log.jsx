@@ -8,7 +8,8 @@ class LoginComponent extends React.Component {
         super(props);
         this.state = {
             mode: this.props.mode,
-            store: this.props.store
+            store: this.props.store,
+            error: '',
         }
     }
     toggleMode() {
@@ -16,19 +17,23 @@ class LoginComponent extends React.Component {
         this.setState({ mode: newMode});
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault()
         if (this.state.mode === 'login') {
             const number = e.target.number.value
             const password = e.target.password.value
-            this.state.store.login(number, password)
+            const response = await this.state.store.login(number, password)
+            this.setState({error: response.error})
         } else {
             const firstName = e.target.firstName.value
             const lastName = e.target.lastName.value
-            const createPassword = e.target.lastName.value
-            const repeatPassword = e.target.lastName.value
+            const createPassword = e.target.createPassword.value
+            const repeatPassword = e.target.repeatPassword.value
             if (createPassword === repeatPassword) {
-                this.state.store.signup(firstName, lastName, createPassword)
+                const response = await this.state.store.signup(firstName, lastName, createPassword)
+                this.setState({error: response.error})
+            } else {
+                this.setState({error: 'passwords don\'t match'})
             }
         }
     }
@@ -47,6 +52,7 @@ class LoginComponent extends React.Component {
                         </div>
                     </header>
                     <LoginForm mode={this.state.mode} onSubmit={(e) => this.handleSubmit(e)} />
+                    <span className='loginError'>{this.state.error}</span>
                 </section>
             </div>
         )
@@ -73,7 +79,7 @@ class LoginForm extends React.Component {
                     <Input type="password" name="repeatPassword" id="repeatpassword" label="repeat password" disabled={this.props.mode === 'login'} />
                 </div>
             </div>
-            <button className="button button--primary full-width" type="submit">{this.props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
+            <button className="button--primary" type="submit">{this.props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
         </form>
         )
     }
