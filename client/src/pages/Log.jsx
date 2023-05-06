@@ -88,7 +88,7 @@ const Log = () => {
     const [mode] = useState('login')
 
     return (
-        <div className={`app app--is-${mode}`}>
+        <div className='log'>
             <LoginComponent mode={mode} store={store}/>
         </div>
     )
