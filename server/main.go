@@ -20,8 +20,8 @@ func main() {
 	c := cors.New(cors.Options{
 		AllowedOrigins:     []string{os.Getenv("CLIENT")},
 		AllowedMethods:     []string{"GET", "POST"},
-		AllowedHeaders:     []string{},
-		ExposedHeaders:     []string{},
+		AllowedHeaders:     []string{"*"},
+		ExposedHeaders:     []string{"*"},
 		AllowCredentials:   true,
 		OptionsPassthrough: false, // preflight requests
 	})
