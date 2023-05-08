@@ -35,14 +35,14 @@ const Navbar = () => {
           </nav>
         </IconContext.Provider>
         <div className='logout'>
-          <button type='button' className='logout-btn' onClick={(e) => {
+          <input type='button' className='logout-btn' onClick={(e) => {
             e.preventDefault()
             store.logout()
             window.location.reload(false)
             }}>
               <AiOutlinePoweroff size={24} className='logout-icon'/>
               <span>Logout</span>
-            </button>
+            </input>
         </div>
       </div>
     </div>
