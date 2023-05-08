@@ -59,6 +59,7 @@ li a span {
 }
 
 .logout-btn:hover {
+    cursor: pointer;
     transition: all 0.4s;
     background-color: #909090;
 }
@@ -112,10 +113,6 @@ li a span {
     
     .logout span, li a span {
         display: none;
-    }
-
-    .logout {
-        width: fit-content;
     }
 
     .logout-icon {
