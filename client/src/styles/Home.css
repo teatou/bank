@@ -77,7 +77,7 @@ main {
 }
 
 .activated {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
     align-self: end;
     justify-self: end;
     font-size: 1vw;
@@ -191,6 +191,7 @@ main {
     main {
         flex-direction: column;
         overflow-y: scroll;
+        justify-content: unset;
     }
 
     .first, .second {
@@ -246,6 +247,7 @@ main {
     main {
         width: calc(100vw - 60px);
         margin-left: 60px;
+        justify-content: unset;
     }
 
     .error {
