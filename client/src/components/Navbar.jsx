@@ -11,6 +11,12 @@ import { observer } from 'mobx-react-lite';
 const Navbar = () => {
   const {store} = useContext(Context)
 
+  const logout = (e) => {
+    e.preventDefault()
+    store.logout()
+    window.location.reload(false)
+  }
+
   return (
     <div className='sidebar'>
       <div className='account-name'>
@@ -35,14 +41,12 @@ const Navbar = () => {
           </nav>
         </IconContext.Provider>
         <div className='logout'>
-          <button className='logout-btn' onClick={(e) => {
-            e.preventDefault()
-            store.logout()
-            window.location.reload(false)
-            }}>
+          <form name='logout-form' method='post' onSubmit={logout}>
+            <button type='submit' className='logout-btn'>
               <AiOutlinePoweroff size={24} className='logout-icon'/>
               <span>Logout</span>
             </button>
+          </form>
         </div>
       </div>
     </div>
