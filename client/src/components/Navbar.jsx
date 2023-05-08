@@ -35,7 +35,8 @@ const Navbar = () => {
           </nav>
         </IconContext.Provider>
         <div className='logout'>
-          <button className='logout-btn' onClick={() => {
+          <button type='submit' className='logout-btn' onClick={(e) => {
+            e.preventDefault()
             store.logout()
             window.location.reload(false)
             }}>
