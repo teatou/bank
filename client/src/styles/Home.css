@@ -37,7 +37,7 @@ main {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    padding: 1.6vw;
+    padding: 1.2vw 1.6vw 1.6vw;
 }
 
 .debit-chip {
