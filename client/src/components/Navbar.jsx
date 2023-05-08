@@ -35,7 +35,7 @@ const Navbar = () => {
           </nav>
         </IconContext.Provider>
         <div className='logout'>
-          <button formNoValidate type='button' className='logout-btn' onClick={(e) => {
+          <button className='logout-btn' onClick={(e) => {
             e.preventDefault()
             store.logout()
             window.location.reload(false)
